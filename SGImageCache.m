@@ -104,10 +104,10 @@
     return image;
 }
 
-+ (void)setImage:(UIImage *)image forURL:(NSString *)url {
-		if ([self.globalMemCache objectForKey:url]) {
-			return;
-		}
++ (void)addImage:(UIImage *)image forURL:(NSString *)url {
+    if ([self.globalMemCache objectForKey:url]) {
+        return;
+    }
     int height = image.size.height,
     width = image.size.width;
     int bytesPerRow = 4 * width;
@@ -115,10 +115,10 @@
         bytesPerRow = ((bytesPerRow / 16) + 1) * 16;
     }
     NSUInteger imageCost = height * bytesPerRow;
-    [self.globalMemCache setObject:image forKey:url cost:imageCost];
-    id cacheKey = [self.cache cacheKeyFor:url requestHeaders:nil];
-		NSData *data = UIImagePNGRepresentation(image);
-		[SGImageCache addData:data forCacheKey:cacheKey];
+    NSString *cacheKey = [self.cache cacheKeyFor:url requestHeaders:nil];
+    [self.globalMemCache setObject:image forKey:cacheKey cost:imageCost];
+    NSData *data = UIImagePNGRepresentation(image);
+    [SGImageCache addData:data forCacheKey:cacheKey];
 }
 
 + (SGCachePromise *)getImageForURL:(NSString *)url {
