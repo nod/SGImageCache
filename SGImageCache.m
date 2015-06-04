@@ -105,9 +105,6 @@
 }
 
 + (void)addImage:(UIImage *)image forURL:(NSString *)url {
-    if ([self.globalMemCache objectForKey:url]) {
-        return;
-    }
     int height = image.size.height,
     width = image.size.width;
     int bytesPerRow = 4 * width;
