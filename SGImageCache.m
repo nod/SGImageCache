@@ -100,7 +100,7 @@
 
     NSUInteger imageCost = height * bytesPerRow;
     [self.globalMemCache setObject:image forKey:name cost:imageCost];
-    
+
     return image;
 }
 
